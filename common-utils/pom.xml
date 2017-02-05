@@ -13,6 +13,7 @@
     <artifactId>common-utils</artifactId>
     <version>0.1</version>
     <name>Common Utilities</name>
+    <url>https://github.com/sylenthira/caravanserai/tree/master/common-utils</url>     
     <packaging>jar</packaging>
 
     <build>
