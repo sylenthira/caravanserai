@@ -13,7 +13,18 @@
     <groupId>org.caravanserai.rest</groupId>
     <artifactId>rest-server</artifactId>
     <version>0.1</version>
+    <name>REST Server</name>
+    <url>https://github.com/sylenthira/caravanserai/tree/master/rest-server</url>     
     <packaging>jar</packaging>
+         
+    <build>
+        <finalName>${project.prefix}-${project.artifactId}-${project.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>     
 
     <dependencies>
 
