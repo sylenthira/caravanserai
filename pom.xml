@@ -8,6 +8,7 @@
     <artifactId>main</artifactId>
     <version>0.1</version>
     <name>Main Module</name>
+    <url>https://github.com/sylenthira/caravanserai</url>	
     <packaging>pom</packaging>
 
 
