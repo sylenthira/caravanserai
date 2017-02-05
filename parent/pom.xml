@@ -8,6 +8,7 @@
     <artifactId>parent</artifactId>
     <version>0.1</version>
     <name>Parent Module</name>
+    <url>https://github.com/sylenthira/caravanserai/tree/master/parent</url>
     <packaging>pom</packaging>
 
     <build>
