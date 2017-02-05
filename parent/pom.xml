@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.caravanserai.commons</groupId>
+    <groupId>org.caravanserai</groupId>
     <artifactId>parent</artifactId>
     <version>0.1</version>
-    <name>Parent Library</name>
+    <name>Parent Module</name>
     <packaging>pom</packaging>
 
     <build>
@@ -24,13 +24,9 @@
         </plugins>
     </build>
 
-    <modules>
-        <module>../utils</module>
-    </modules>
-
 
     <properties>
-        <project.prefeix>caravanserai</project.prefeix>
+        <project.prefix>caravanserai</project.prefix>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler.version>3.6.1</maven-compiler.version>
         <jdk.version>1.8</jdk.version>
