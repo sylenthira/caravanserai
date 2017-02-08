@@ -10,7 +10,6 @@
         <version>0.1</version>
     </parent>
 
-    <groupId>org.caravanserai.demo</groupId>
     <artifactId>rest-server-demo</artifactId>
     <version>0.1</version>
     <name>REST Server Demo</name>     
@@ -44,6 +43,7 @@
             <version>0.1</version>
         </dependency>
     </dependencies>
+
 
 
 </project>

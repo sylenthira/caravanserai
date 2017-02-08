@@ -5,37 +5,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.caravanserai.rest</groupId>
-        <artifactId>rest-server</artifactId>
+        <groupId>org.caravanserai</groupId>
+        <artifactId>parent</artifactId>
         <version>0.1</version>
     </parent>
 
-    <artifactId>rest-server-demo</artifactId>
+
+    <artifactId>demo</artifactId>
     <version>0.1</version>
-    <name>REST Server Demo</name>     
+    <name>Demo</name>
     <url>https://github.com/sylenthira/caravanserai/tree/master/demo/rest-server-demo</url>     
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
-    <build>
-        <finalName>rest-server-demo</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
-
+    <profiles>
+        <profile>
+            <id>rest-demo</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>../common-utils</module>
+                <module>../rest-server</module>
+                <module>rest-server-demo</module>
+            </modules>
+        </profile>
+    </profiles>
 
 
 </project>

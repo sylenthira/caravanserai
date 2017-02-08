@@ -1,5 +1,9 @@
 package org.caravanserai.demo.web.resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,6 +16,12 @@ import javax.ws.rs.core.Response;
  */
 @Path("/test")
 public class TestResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestResource.class);
+
+    @PostConstruct
+    void init(){
+        LOGGER.info("Inside Init");
+    }
 
     private class Json {
         private String name;
