@@ -7,7 +7,7 @@ import java.util.Optional;
  * @author sylenthira
  */
 public enum PhoneType {
-    MOBILE(0), HOME(1), WORK(2);
+    MOBILE(1), HOME(2), WORK(3);
 
     private Integer type;
 

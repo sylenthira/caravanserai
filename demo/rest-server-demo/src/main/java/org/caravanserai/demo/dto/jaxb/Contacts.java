@@ -1,7 +1,5 @@
 package org.caravanserai.demo.dto.jaxb;
 
-import org.caravanserai.demo.dto.Contact;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -16,13 +14,14 @@ import java.util.List;
 public class Contacts {
 
     @XmlElement(name = "contact")
-    private List<Contact> contactList;
+    private List<JaxbContact> contactList;
 
-    public List<Contact> getContactList() {
+
+    public List<JaxbContact> getContactList() {
         return contactList;
     }
 
-    public void setContactList(List<Contact> contactList) {
+    public void setContactList(List<JaxbContact> contactList) {
         this.contactList = contactList;
     }
 }

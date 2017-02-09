@@ -18,99 +18,121 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import java.io.IOException;
+import java.io.StringWriter;
 
 /**
  * @author sylenthira on 8/6/15.
  */
 @Provider
 public class RestLoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
-  private static final String SEPARATOR = ": ";
-  private static final Logger LOGGER = LoggerFactory.getLogger(RestLoggingFilter.class);
+    private static final String SEPARATOR = ": ";
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestLoggingFilter.class);
 
-  @Context
-  HttpServletRequest httpServletRequest;
-  @Context
-  HttpServletResponse httpServletResponse;
+    @Context
+    HttpServletRequest httpServletRequest;
+    @Context
+    HttpServletResponse httpServletResponse;
 
-  @Override
-  public void filter(ContainerRequestContext request) throws IOException {
-    String clientIP = httpServletRequest.getHeader(Constants.HEADER_X_FORWARDED_FOR);
-    if (clientIP == null) {
-      clientIP = httpServletRequest.getRemoteAddr();
-    }
-    request.getHeaders().add(Constants.HEADER_CLIENT_IP, clientIP);
-    if (LOGGER.isTraceEnabled()) {
-      StringBuilder output = getLoggingMessageBuilder();
-
-      output.append(request.getMethod()).append(" ")
-          .append(request.getUriInfo().getRequestUri()).append(" ")
-          .append(httpServletRequest.getProtocol()).append("\n");
-
-      for (String s : request.getHeaders().keySet()) {
-        output.append(s).append(SEPARATOR).append(request.getHeaderString(s)).append("\n");
-      }
-
-      output.append("\n");
-
-      String content = null;
-      try {
-        content = IOUtils.toString(request.getEntityStream(), Constants.CHARSET_UTF_8);
-        if (StringUtils.isNotBlank(content)) {
-          output.append(content).append("\n");
+    @Override
+    public void filter(ContainerRequestContext request) throws IOException {
+        String clientIP = httpServletRequest.getHeader(Constants.HEADER_X_FORWARDED_FOR);
+        if (clientIP == null) {
+            clientIP = httpServletRequest.getRemoteAddr();
         }
-      } catch (IOException e) {
-        LOGGER.error("Error ", e);
-      }
+        request.getHeaders().add(Constants.HEADER_CLIENT_IP, clientIP);
+        if (LOGGER.isTraceEnabled()) {
+            StringBuilder output = getLoggingMessageBuilder();
 
-      if (content != null) {
-        request.setEntityStream(IOUtils.toInputStream(content, Constants.CHARSET_UTF_8));
-      }
+            output.append(request.getMethod()).append(" ")
+                    .append(request.getUriInfo().getRequestUri()).append(" ")
+                    .append(httpServletRequest.getProtocol()).append("\n");
 
-      LOGGER.trace("Server in-bound: \n{}", output.toString());
-    }
-  }
+            for (String s : request.getHeaders().keySet()) {
+                output.append(s).append(SEPARATOR).append(request.getHeaderString(s)).append("\n");
+            }
 
-  @Override
-  public void filter(ContainerRequestContext request, ContainerResponseContext response) throws
-      IOException {
-    if (LOGGER.isTraceEnabled()) {
+            output.append("\n");
 
-      StringBuilder output = getLoggingMessageBuilder();
-      for (String key : response.getHeaders().keySet()) {
-        output.append(key).append(SEPARATOR).append(response.getHeaders().getFirst(key))
-            .append("\n");
-      }
+            String content = null;
+            try {
+                content = IOUtils.toString(request.getEntityStream(), Constants.CHARSET_UTF_8);
+                if (StringUtils.isNotBlank(content)) {
+                    output.append(content).append("\n");
+                }
+            } catch (IOException e) {
+                LOGGER.error("Error ", e);
+            }
 
-      output.append("\n");
+            if (content != null) {
+                request.setEntityStream(IOUtils.toInputStream(content, Constants.CHARSET_UTF_8));
+            }
 
-      if (isJson(response)) {
-        try {
-          String content = new ObjectMapper().writeValueAsString(response.getEntity());
-          output.append(content);
-
-        } catch (JsonProcessingException e) {
-          LOGGER.error(e.getMessage(), e);
+            LOGGER.trace("Server in-bound: \n{}", output.toString());
         }
-
-      } else {
-        if (response.getEntity() != null) {
-          output.append(response.getEntity());
-        }
-      }
-
-      LOGGER.trace("Server Out-bound: \n{}\n", output.toString());
     }
-  }
+
+    @Override
+    public void filter(ContainerRequestContext request, ContainerResponseContext response) throws
+            IOException {
+        if (LOGGER.isTraceEnabled()) {
+
+            StringBuilder output = getLoggingMessageBuilder();
+            for (String key : response.getHeaders().keySet()) {
+                output.append(key).append(SEPARATOR).append(response.getHeaders().getFirst(key))
+                        .append("\n");
+            }
+
+            output.append("\n");
+
+            if (response.getEntity() != null) {
+                try {
+                    if (isJson(response)) {
+
+                        String content = new ObjectMapper().writerWithDefaultPrettyPrinter()
+                                .writeValueAsString(response.getEntity());
+                        output.append(content);
 
 
-  boolean isJson(ContainerResponseContext response) {
-    return MediaType.APPLICATION_JSON_TYPE.equals(response.getMediaType());
-  }
+                    } else if (isXml(response)) {
+                        final Marshaller marshaller =
+                                JAXBContext.newInstance(response.getEntity().getClass()).createMarshaller();
+                        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+                        final StringWriter stringWriter = new StringWriter();
+                        marshaller.marshal(response.getEntity(), stringWriter);
+                        output.append(stringWriter.toString());
 
-  private StringBuilder getLoggingMessageBuilder() {
-    return new StringBuilder();
-  }
+                    } else {
+                        if (response.getEntity() != null) {
+                            output.append(response.getEntity());
+                        }
+                    }
+
+
+                } catch (Exception e) {
+                    LOGGER.error("Error while converting response entity to String ", e);
+                }
+            }
+
+
+            LOGGER.trace("Server Out-bound: \n{}\n", output.toString());
+        }
+    }
+
+
+    boolean isJson(ContainerResponseContext response) {
+        return MediaType.APPLICATION_JSON_TYPE.equals(response.getMediaType());
+    }
+
+    boolean isXml(ContainerResponseContext response) {
+        return MediaType.APPLICATION_XML_TYPE.equals(response.getMediaType());
+    }
+
+    private StringBuilder getLoggingMessageBuilder() {
+        return new StringBuilder();
+    }
 
 
 }

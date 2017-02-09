@@ -1,16 +1,26 @@
 package org.caravanserai.demo.dto;
 
 import org.caravanserai.demo.dto.enums.PhoneType;
+import org.caravanserai.demo.dto.jaxb.PhoneTypeEnum;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /**
  * @author sylenthira
  */
+@XmlRootElement(name = "phone")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Phone {
     public Phone() {}
 
     private Integer id;
+    @XmlElement
+    @XmlJavaTypeAdapter(PhoneTypeEnum.class)
     private PhoneType type;
     private String number;
 
