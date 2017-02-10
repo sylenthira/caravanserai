@@ -1,13 +1,12 @@
-package org.caravanserai.demo.web.resource;
+package org.caravanserai.demo.web.resource.test;
 
-import org.caravanserai.demo.dto.Phone;
-import org.caravanserai.demo.dto.jaxb.Phones;
-import org.caravanserai.demo.dto.enums.PhoneType;
+import org.caravanserai.demo.web.jaxb.dto.JaxbPhone;
+import org.caravanserai.demo.web.jaxb.dto.Phones;
+import org.caravanserai.demo.dal.entity.enums.PhoneType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,29 +26,7 @@ public class TestResource {
         LOGGER.info("Inside Init");
     }
 
-    private class Json {
-        private String name;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson() {
-        Json json = new Json();
-        json.setName("Sylenthira!");
-        return Response.status(Response.Status.OK).entity(json).build();
-    }
-
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response getHelloWord() {
         return Response.status(Response.Status.OK).entity("Hello World").build();
@@ -61,15 +38,15 @@ public class TestResource {
     public Response getPhone() {
         Phones phones = new Phones();
         phones.setPhoneList(new ArrayList<>());
-        Phone phone;
+        JaxbPhone phone;
 
-        phone = new Phone();
+        phone = new JaxbPhone();
         phone.setId(1);
         phone.setNumber("133422");
         phone.setType(PhoneType.HOME);
         phones.getPhoneList().add(phone);
 
-        phone = new Phone();
+        phone = new JaxbPhone();
         phone.setId(2);
         phone.setNumber("324323");
         phone.setType(PhoneType.MOBILE);

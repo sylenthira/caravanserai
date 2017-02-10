@@ -1,8 +1,8 @@
-package org.caravanserai.demo.dbo;
+package org.caravanserai.demo.data;
 
-import org.caravanserai.demo.dto.Contact;
-import org.caravanserai.demo.dto.Phone;
-import org.caravanserai.demo.dto.enums.PhoneType;
+import org.caravanserai.demo.dal.entity.Contact;
+import org.caravanserai.demo.dal.entity.Phone;
+import org.caravanserai.demo.dal.entity.enums.PhoneType;
 
 import java.util.HashSet;
 import java.util.Map;

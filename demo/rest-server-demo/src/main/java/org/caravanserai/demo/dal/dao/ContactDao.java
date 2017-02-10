@@ -1,7 +1,7 @@
-package org.caravanserai.demo.dao;
+package org.caravanserai.demo.dal.dao;
 
-import org.caravanserai.demo.dto.Contact;
-import org.caravanserai.demo.dto.Phone;
+import org.caravanserai.demo.dal.entity.Contact;
+import org.caravanserai.demo.dal.entity.Phone;
 
 import java.util.List;
 

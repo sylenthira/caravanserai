@@ -1,4 +1,4 @@
-package org.caravanserai.demo.dto.jaxb;
+package org.caravanserai.demo.web.jaxb.dto;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

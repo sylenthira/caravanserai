@@ -1,4 +1,7 @@
-package org.caravanserai.demo.dto.enums;
+package org.caravanserai.demo.dal.entity.enums;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -15,10 +18,12 @@ public enum PhoneType {
         this.type = type;
     }
 
+    @JsonValue
     public Integer getType() {
         return type;
     }
 
+    @JsonCreator
     public static PhoneType valueOf(Integer type) {
         Optional<PhoneType> entry = Arrays.stream(PhoneType.values())
                 .filter(phoneType -> phoneType.getType().equals(type))

@@ -1,18 +1,17 @@
-package org.caravanserai.demo.dao.impl;
+package org.caravanserai.demo.dal.dao.impl;
 
-import org.caravanserai.demo.dao.ContactDao;
+import org.caravanserai.demo.dal.dao.ContactDao;
 
-import org.caravanserai.demo.dbo.ContactDatabase;
-import org.caravanserai.demo.dto.Contact;
-import org.caravanserai.demo.dto.Phone;
+import org.caravanserai.demo.dal.entity.Contact;
+import org.caravanserai.demo.dal.entity.Phone;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.caravanserai.demo.dbo.ContactDatabase.CONTACT_RECORDS;
-import static org.caravanserai.demo.dbo.ContactDatabase.CONTACT_ID;
-import static org.caravanserai.demo.dbo.ContactDatabase.PHONE_ID;
+import static org.caravanserai.demo.data.ContactDatabase.CONTACT_RECORDS;
+import static org.caravanserai.demo.data.ContactDatabase.CONTACT_ID;
+import static org.caravanserai.demo.data.ContactDatabase.PHONE_ID;
 
 /**
  * @author sylenthira

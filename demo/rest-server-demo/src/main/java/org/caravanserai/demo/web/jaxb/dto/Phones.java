@@ -1,6 +1,6 @@
-package org.caravanserai.demo.dto.jaxb;
+package org.caravanserai.demo.web.jaxb.dto;
 
-import org.caravanserai.demo.dto.Phone;
+import org.caravanserai.demo.dal.entity.Phone;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,13 +16,13 @@ import java.util.List;
 public class Phones {
 
     @XmlElement(name = "phone")
-    private List<Phone> phoneList;
+    private List<JaxbPhone> jaxbPhoneList;
 
-    public List<Phone> getPhoneList() {
-        return phoneList;
+    public List<JaxbPhone> getPhoneList() {
+        return jaxbPhoneList;
     }
 
-    public void setPhoneList(List<Phone> phoneList) {
-        this.phoneList = phoneList;
+    public void setPhoneList(List<JaxbPhone> phoneList) {
+        this.jaxbPhoneList = phoneList;
     }
 }

@@ -1,6 +1,6 @@
-package org.caravanserai.demo.dto.jaxb;
+package org.caravanserai.demo.web.jaxb;
 
-import org.caravanserai.demo.dto.enums.PhoneType;
+import org.caravanserai.demo.dal.entity.enums.PhoneType;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

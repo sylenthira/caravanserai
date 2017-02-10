@@ -1,13 +1,12 @@
 package org.caravanserai.demo.service.impl;
 
 
-import org.caravanserai.demo.dao.ContactDao;
-import org.caravanserai.demo.dao.impl.ContactDaoImpl;
-import org.caravanserai.demo.dto.Contact;
-import org.caravanserai.demo.dto.Phone;
+import org.caravanserai.demo.dal.dao.ContactDao;
+import org.caravanserai.demo.dal.dao.impl.ContactDaoImpl;
+import org.caravanserai.demo.dal.entity.Contact;
+import org.caravanserai.demo.dal.entity.Phone;
 import org.caravanserai.demo.service.ContactEntryService;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**

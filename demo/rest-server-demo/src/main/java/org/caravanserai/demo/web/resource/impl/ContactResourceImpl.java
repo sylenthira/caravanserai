@@ -1,9 +1,10 @@
 package org.caravanserai.demo.web.resource.impl;
 
-import org.caravanserai.demo.dto.Contact;
-import org.caravanserai.demo.dto.jaxb.Contacts;
-import org.caravanserai.demo.dto.jaxb.JaxbContact;
-import org.caravanserai.demo.dto.jaxb.Phones;
+import org.caravanserai.demo.dal.entity.Contact;
+import org.caravanserai.demo.web.jaxb.dto.Contacts;
+import org.caravanserai.demo.web.jaxb.dto.JaxbContact;
+import org.caravanserai.demo.web.jaxb.dto.JaxbPhone;
+import org.caravanserai.demo.web.jaxb.dto.Phones;
 import org.caravanserai.demo.service.ContactEntryService;
 import org.caravanserai.demo.service.impl.ContactEntryServiceImpl;
 import org.caravanserai.demo.web.resource.ContactResource;
@@ -34,7 +35,12 @@ public class ContactResourceImpl implements ContactResource {
 
 
     @Override
-    public Response getContacts() {
+    public Response getContactsInJSON() {
+        return ResponseUtil.getOkSuccess(contactEntryService.getContacts());
+    }
+
+    @Override
+    public Response getContactsInXML() {
         List<Contact> contactList = contactEntryService.getContacts();
 
         Contacts contacts = null;
@@ -47,7 +53,14 @@ public class ContactResourceImpl implements ContactResource {
                 jaxbContact.setName(c.getName());
                 if (c.getPhones() != null && c.getPhones().size() > 0) {
                     Phones phones = new Phones();
-                    phones.setPhoneList(new ArrayList<>(c.getPhones()));
+                    phones.setPhoneList(new ArrayList<>());
+                    c.getPhones().forEach(p-> {
+                        JaxbPhone jaxbPhone = new JaxbPhone();
+                        jaxbPhone.setId(p.getId());
+                        jaxbPhone.setNumber(p.getNumber());
+                        jaxbPhone.setType(p.getType());
+                        phones.getPhoneList().add(jaxbPhone);
+                    });
                     jaxbContact.setPhones(phones);
                 }
                 jaxbContacts.add(jaxbContact);
@@ -56,7 +69,5 @@ public class ContactResourceImpl implements ContactResource {
         }
 
         return ResponseUtil.getOkSuccess(contacts);
-
-
     }
 }

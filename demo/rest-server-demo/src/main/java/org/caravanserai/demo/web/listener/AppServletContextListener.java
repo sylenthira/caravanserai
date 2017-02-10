@@ -1,7 +1,7 @@
 package org.caravanserai.demo.web.listener;
 
 
-import org.caravanserai.demo.dbo.ContactDatabase;
+import org.caravanserai.demo.data.ContactDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
