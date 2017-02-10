@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.caravanserai</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>common-parent</artifactId>
     <version>0.1</version>
-    <name>Parent Module</name>
+    <name>Common Parent Module</name>
     <url>https://github.com/sylenthira/caravanserai/tree/master/parent</url>
     <packaging>pom</packaging>
 

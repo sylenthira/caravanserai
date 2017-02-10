@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>org.caravanserai</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>common-parent</artifactId>
         <version>0.1</version>
     </parent>
 
     <groupId>org.caravanserai.rest</groupId>
-    <artifactId>rest-server</artifactId>
+    <artifactId>common-rest-server</artifactId>
     <version>0.1</version>
     <name>REST Server</name>
     <url>https://github.com/sylenthira/caravanserai/tree/master/rest-server</url>     

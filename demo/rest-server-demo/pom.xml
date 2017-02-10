@@ -6,8 +6,9 @@
 
     <parent>
         <groupId>org.caravanserai</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>common-parent</artifactId>
         <version>0.1</version>
+        <relativePath>../../common-parent</relativePath>
     </parent>
 
     <artifactId>rest-server-demo</artifactId>
@@ -39,7 +40,7 @@
     <dependencies>
         <dependency>
             <groupId>org.caravanserai.rest</groupId>
-            <artifactId>rest-server</artifactId>
+            <artifactId>common-rest-server</artifactId>
             <version>0.1</version>
         </dependency>
     </dependencies>
