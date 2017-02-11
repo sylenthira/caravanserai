@@ -11,16 +11,15 @@
         <relativePath>../common-parent</relativePath>
     </parent>
 
-
     <artifactId>demo</artifactId>
     <version>0.1</version>
     <name>Demo</name>
-    <url>https://github.com/sylenthira/caravanserai/tree/master/demo/rest-server-demo</url>     
+    <url>https://github.com/sylenthira/caravanserai/tree/master/demo</url>
     <packaging>pom</packaging>
 
     <profiles>
         <profile>
-            <id>rest-demo</id>
+            <id>rest-server-demo</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -29,6 +28,39 @@
                 <module>../common-utils</module>
                 <module>../common-rest-server</module>
                 <module>rest-server-demo</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>springboot-demo</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>../common-parent</module>
+                <module>../common-utils</module>
+                <module>springboot-demo</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>springboot-jersey-demo</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>../common-parent</module>
+                <module>../common-utils</module>
+                <module>springboot-jersey-demo</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>springboot-resteasy-demo</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>../common-parent</module>
+                <module>../common-utils</module>
+                <module>springboot-resteasy-demo</module>
             </modules>
         </profile>
     </profiles>
