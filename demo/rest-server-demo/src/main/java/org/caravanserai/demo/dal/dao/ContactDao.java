@@ -9,17 +9,17 @@ import java.util.List;
  * @author sylenthira
  */
 public interface ContactDao {
-    public List<Contact> getContacts();
-    public List<Contact> getContacts(int startIndex, int size);
-    public Contact getContactById(Integer id);
-    public Contact getContactByPhoneNo(String phoneNo);
-    public void addContact(Contact contact);
-    public void updateContact(Contact contact);
-    public void deleteContact(Contact contact);
+    List<Contact> getContacts();
+    List<Contact> getContacts(Integer startIndex, Integer size);
+    Contact getContactById(Integer id);
+    Contact getContactByPhoneNo(String phoneNo);
+    Contact addContact(Contact contact);
+    void updateContact(Integer id, Contact contact);
+    void deleteContact(Contact contact);
 
-    public List<Phone> getPhonesByContactId(Integer contactId);
-    public Phone getPhoneByContactIdPhoneId(Integer contactId, Integer phoneId);
-    public void addPhone(Integer contactId, Phone phone);
-    public void updatePhone(Integer contactId, Phone phone);
-    public void deletePhone(Integer contactId, Phone phone);
+    List<Phone> getPhonesByContactId(Integer contactId);
+    Phone getPhoneByContactIdPhoneId(Integer contactId, Integer phoneId);
+    Phone addPhone(Integer contactId, Phone phone);
+    void updatePhone(Integer contactId, Integer phoneId,  Phone phone);
+    void deletePhone(Integer contactId, Phone phone);
 }

@@ -22,16 +22,6 @@ public class ContactEntryServiceImpl implements ContactEntryService {
     }
 
     @Override
-    public Contact getContactById(int id) {
-        return contactDao.getContactById(id);
-    }
-
-    @Override
-    public Contact getContactByPhoneNo(String phoneNo) {
-        return contactDao.getContactByPhoneNo(phoneNo);
-    }
-
-    @Override
     public List<Contact> getContacts() {
         return contactDao.getContacts();
     }
@@ -42,13 +32,23 @@ public class ContactEntryServiceImpl implements ContactEntryService {
     }
 
     @Override
-    public void addContact(Contact contact) {
-        contactDao.addContact(contact);
+    public Contact getContactById(int id) {
+        return contactDao.getContactById(id);
     }
 
     @Override
-    public void updateContact(Contact contact) {
-        contactDao.updateContact(contact);
+    public Contact getContactByPhoneNo(String phoneNo) {
+        return contactDao.getContactByPhoneNo(phoneNo);
+    }
+
+    @Override
+    public Contact addContact(Contact contact) {
+        return contactDao.addContact(contact);
+    }
+
+    @Override
+    public void updateContact(int id, Contact contact) {
+        contactDao.updateContact(id, contact);
     }
 
     @Override
@@ -62,18 +62,18 @@ public class ContactEntryServiceImpl implements ContactEntryService {
     }
 
     @Override
-    public Phone getPhoneByContactIdPhoneId(Integer contactId, Integer phoneId) {
+    public Phone getPhoneByContactIdPhoneId(int contactId, int phoneId) {
         return contactDao.getPhoneByContactIdPhoneId(contactId, phoneId);
     }
 
     @Override
-    public void addPhone(int contactId, Phone phone) {
-        contactDao.addPhone(contactId, phone);
+    public Phone addPhone(int contactId, Phone phone) {
+        return contactDao.addPhone(contactId, phone);
     }
 
     @Override
-    public void updatePhone(int contactId, Phone phone) {
-        contactDao.updatePhone(contactId, phone);
+    public void updatePhone(int contactId, int phoneId, Phone phone) {
+        contactDao.updatePhone(contactId, phoneId, phone);
     }
 
     @Override

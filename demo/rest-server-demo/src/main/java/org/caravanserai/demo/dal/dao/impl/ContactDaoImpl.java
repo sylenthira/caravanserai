@@ -23,7 +23,7 @@ public class ContactDaoImpl implements ContactDao {
         return CONTACT_RECORDS.values().stream().collect(Collectors.toList());
     }
 
-    public List<Contact> getContacts(int startIndex, int size) {
+    public List<Contact> getContacts(Integer startIndex, Integer size) {
         return IntStream.range(startIndex, size)
                 .filter(i -> i < getContacts().stream().count())
                 .mapToObj(i -> getContacts().get(i))
@@ -46,7 +46,7 @@ public class ContactDaoImpl implements ContactDao {
     }
 
     @Override
-    public void addContact(Contact contact) {
+    public Contact addContact(Contact contact) {
         if (contact != null) {
             contact.setId(CONTACT_ID.incrementAndGet());
             final Set<Phone> phones = contact.getPhones();
@@ -59,24 +59,27 @@ public class ContactDaoImpl implements ContactDao {
             }
             CONTACT_RECORDS.put(CONTACT_ID.get(), contact);
         }
-
+        return contact;
     }
 
     @Override
-    public void updateContact(Contact contact) {
+    public void updateContact(Integer id, Contact contact) {
         if (contact != null) {
-            Contact rec = CONTACT_RECORDS.get(contact.getId());
-            rec.setName(contact.getName());
-            final Set<Phone> phones = contact.getPhones();
-            if (phones !=null && phones.size()>0){
-                phones.forEach(phone -> {
-                    if (phone.getId() == null) {
-                        phone.setId(PHONE_ID.incrementAndGet());
-                    }
-                });
+            Contact rec = CONTACT_RECORDS.get(id);
+            if(rec!=null) {
+                rec.setName(contact.getName());
+                final Set<Phone> phones = contact.getPhones();
+                if (phones !=null && phones.size()>0){
+                    phones.forEach(phone -> {
+                        if (phone.getId() == null) {
+                            phone.setId(PHONE_ID.incrementAndGet());
+                        }
+                    });
+                }
+                rec.setPhones(phones);
+                CONTACT_RECORDS.put(rec.getId(), rec);
             }
-            rec.setPhones(phones);
-            CONTACT_RECORDS.put(rec.getId(), rec);
+
         }
     }
 
@@ -113,7 +116,7 @@ public class ContactDaoImpl implements ContactDao {
     }
 
     @Override
-    public void addPhone(Integer contactId, Phone phone) {
+    public Phone addPhone(Integer contactId, Phone phone) {
         if (phone != null) {
             Contact contact = CONTACT_RECORDS.get(contactId);
             if (contact != null) {
@@ -121,20 +124,20 @@ public class ContactDaoImpl implements ContactDao {
                 contact.addPhone(phone);
             }
         }
+        return phone;
     }
 
     @Override
-    public void updatePhone(Integer contactId, Phone phone) {
+    public void updatePhone(Integer contactId, Integer phoneId, Phone phone) {
         if (phone != null) {
             Contact contact = CONTACT_RECORDS.get(contactId);
             final Set<Phone> phones = contact.getPhones();
             if (phones != null) {
-                phones.removeIf(p -> phone.getId().equals(p.getId()));
+                phones.removeIf(p -> phoneId.equals(p.getId()));
                 phones.add(phone);
             }
             CONTACT_RECORDS.put(contact.getId(), contact);
         }
-
     }
 
     @Override
